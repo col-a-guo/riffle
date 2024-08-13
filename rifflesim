@@ -10,7 +10,7 @@ dist = [binom.pmf(r, n, p) for r in r_values]
 
 p_dist_matrix = [[0 for i in range(52)] for j in range(52)]
 
-for i in range(1000000):
+for i in range(100000):
     current_deck = [card for card in range(52)]
     for shuffle in range(7):
         dist_rand = random.uniform(0,1)
@@ -30,6 +30,7 @@ for i in range(1000000):
                 current_deck.append(decklist1.pop(0))
             elif len(decklist2)>0:
                 current_deck.append(decklist2.pop(0))
+        
     for k in range(52):
         card_in_slot = current_deck[k]
         p_dist_matrix[k][card_in_slot] += 1
