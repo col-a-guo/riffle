@@ -1,0 +1,31 @@
+import random
+   
+from scipy.stats import binom   
+n = 52
+p = 0.5
+r_values = list(range(n + 1)) 
+dist = [binom.pmf(r, n, p) for r in r_values]
+
+
+for i in range(10000):
+    current_deck = [card for card in range(52)]
+    for shuffle in range(7):
+        dist_rand = random.uniform(0,1)
+        dist_marker = 0
+        deck1 = 0
+        for i, prob in enumerate(dist):
+            dist_marker += prob
+            if dist_rand < dist_marker:
+                deck1 = i
+                break
+        decklist1 = current_deck[:deck1]
+        decklist2 = current_deck[deck1:]
+        current_deck = []
+        while len(current_deck)<52:
+            randomdeck = random.randint(1,2)
+            if randomdeck == 1 and len(decklist1)>0:
+                current_deck.append(decklist1.pop(0))
+            elif len(decklist2)>0:
+                current_deck.append(decklist2.pop(0))
+    
+    
