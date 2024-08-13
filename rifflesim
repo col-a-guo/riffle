@@ -1,6 +1,8 @@
 import random
    
 from scipy.stats import binom   
+
+import pandas as pd
 n = 52
 p = 0.5
 r_values = list(range(n + 1)) 
@@ -8,7 +10,7 @@ dist = [binom.pmf(r, n, p) for r in r_values]
 
 p_dist_matrix = [[0 for i in range(52)] for j in range(52)]
 
-for i in range(100000):
+for i in range(1000000):
     current_deck = [card for card in range(52)]
     for shuffle in range(7):
         dist_rand = random.uniform(0,1)
@@ -32,4 +34,5 @@ for i in range(100000):
         card_in_slot = current_deck[k]
         p_dist_matrix[k][card_in_slot] += 1
 
-print(p_dist_matrix[0:][0])
+df = pd.DataFrame(p_dist_matrix)
+df.to_csv('riffle_dist_table.csv')
